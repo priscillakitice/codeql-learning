@@ -32,10 +32,10 @@ def login():
     
     # Vulnerabilidade: SQL Injection
     # O usuário pode inserir SQL malicioso no campo username
-    query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+    query = "SELECT * FROM users WHERE username = ? AND password = ?"
     
     conn = get_db_connection()
-    user = conn.execute(query).fetchone()
+    user = conn.execute(query, (username, password)).fetchone()
     conn.close()
     
     if user:
